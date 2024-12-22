@@ -21,12 +21,14 @@ export default class Mouse {
     ["middle", false],
     ["right", false],
     ["click", false],
+    ["touch", false],
   ]);
   event = new Events([
     { name: "down" },
     { name: "up" },
     { name: "move" },
     { name: "click" },
+    { name: "touchmove" },
   ]);
   game;
   x = 0;
@@ -96,5 +98,36 @@ export default class Mouse {
     game.canvas.addEventListener('mouseleave', e => {
       e.preventDefault();
     });
+
+    game.canvas.addEventListener('touchstart', e => {
+      e.preventDefault();
+      const touches = e.changedTouches;
+
+      this.flag.set("touch", true);
+
+      [this.old_x, this.old_y] = [this.x, this.y];
+      [this.x, this.y] = calcMouseCoord(touches[0]);
+
+      this.event.emit("down", e);
+    });
+
+    game.canvas.addEventListener('touchend', e => {
+      e.preventDefault();
+
+      this.flag.set("touch", false);
+
+      this.event.emit("up", e);
+    });
+
+    game.canvas.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const touches = e.changedTouches;
+
+      [this.old_x, this.old_y] = [this.x, this.y];
+      [this.x, this.y] = calcMouseCoord(touches[0]);
+
+      this.event.emit("touchmove", e);
+    });
+
   }
 }
