@@ -122,7 +122,7 @@ export default class Debug extends Scene {
     }
 
     this.particles.move(this.game.mouse.x, this.game.mouse.y);
-    if (this.game.mouse.flag.get("left")) {
+    if (this.game.mouse.flag.get("click") || this.game.mouse.flag.get("touch")) {
       this.particles.gen();
     }
     this.particles.update();
@@ -144,6 +144,7 @@ export default class Debug extends Scene {
         `    middle: ${this.game.mouse.flag.get("middle")}`,
         `     right: ${this.game.mouse.flag.get("right")}`,
         `     click: ${this.game.mouse.flag.get("click")}`,
+        `     touch: ${this.game.mouse.flag.get("touch")}`,
         `         x: ${Math.floor(this.game.mouse.x)}`,
         `         y: ${Math.floor(this.game.mouse.y)}`,
         `        vx: ${Math.floor(this.game.mouse.vx)}`,
