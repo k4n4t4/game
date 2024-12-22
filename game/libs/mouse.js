@@ -47,8 +47,8 @@ export default class Mouse {
     game.canvas.addEventListener('click', e => {
       e.preventDefault();
 
-      [this.old_x, this.old_y] = [this.x, this.y];
       [this.x, this.y] = calcMouseCoord(e);
+      [this.old_x, this.old_y] = [this.x, this.y];
 
       this.event.emit("click", e);
     });
@@ -63,8 +63,8 @@ export default class Mouse {
       }
       this.flag.set("click", true);
 
-      [this.old_x, this.old_y] = [this.x, this.y];
       [this.x, this.y] = calcMouseCoord(e);
+      [this.old_x, this.old_y] = [this.x, this.y];
 
       this.event.emit("down", e);
     });
@@ -103,12 +103,12 @@ export default class Mouse {
 
     game.canvas.addEventListener('touchstart', e => {
       e.preventDefault();
-      const touches = e.changedTouches;
+      const touches = e.targetTouches;
 
       this.flag.set("touch", true);
 
-      [this.old_x, this.old_y] = [this.x, this.y];
       [this.x, this.y] = calcMouseCoord(touches[0]);
+      [this.old_x, this.old_y] = [this.x, this.y];
 
       this.event.emit("touchstart", e);
     });
@@ -123,7 +123,7 @@ export default class Mouse {
 
     game.canvas.addEventListener('touchmove', e => {
       e.preventDefault();
-      const touches = e.changedTouches;
+      const touches = e.targetTouches;
 
       [this.old_x, this.old_y] = [this.x, this.y];
       [this.x, this.y] = calcMouseCoord(touches[0]);
