@@ -19,9 +19,9 @@ export default function createCanvas(config={}) {
   function canvasResize() {
     if (window.innerWidth >= window.innerHeight * ASPECT) {
       canvas.style.width = "";
-      canvas.style.height = "100vh";
+      canvas.style.height = "90vh";
     } else {
-      canvas.style.width = "100vw";
+      canvas.style.width = "90vw";
       canvas.style.height = "";
     }
   }
