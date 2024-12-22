@@ -102,7 +102,6 @@ export default class Mouse {
     });
 
     game.canvas.addEventListener('touchstart', e => {
-      e.preventDefault();
       const touches = e.targetTouches;
 
       this.flag.set("touch", true);
@@ -114,8 +113,6 @@ export default class Mouse {
     });
 
     game.canvas.addEventListener('touchend', e => {
-      e.preventDefault();
-
       this.flag.set("touch", false);
 
       this.event.emit("touchend", e);
