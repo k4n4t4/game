@@ -14,6 +14,7 @@ export default function createCanvas(config={}) {
     aspectRatio: ASPECT,
     background: "#000000",
     imageRendering: "pixelated",
+    userSelect: "none",
   });
 
   function canvasResize() {
