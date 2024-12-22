@@ -1,5 +1,5 @@
-import Events from "/game/libs/events.js";
-import Flags from "/game/libs/flags.js";
+import Events from "./events.js";
+import Flags from "./flags.js";
 
 
 function calcMouseCoord(e) {

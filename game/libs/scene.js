@@ -1,6 +1,6 @@
-import Assets from "/game/libs/assets.js";
-import Flags from "/game/libs/flags.js";
-import Events from "/game/libs/events.js";
+import Assets from "./assets.js";
+import Events from "./events.js";
+import Flags from "./flags.js";
 
 
 export default class Scene {

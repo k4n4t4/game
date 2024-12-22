@@ -1,6 +1,6 @@
-import Scene from "/game/libs/scene.js";
-import { drawText } from "/game/utils/fonts.js";
-import { changeColor } from "/game/utils/effect.js";
+import Scene from "./../libs/scene.js";
+import { drawText } from "./../utils/fonts.js";
+import { changeColor } from "./../utils/effect.js";
 
 
 export default class Title extends Scene {
@@ -66,10 +66,10 @@ export default class Title extends Scene {
 
   load() {
     const promises = [
-      this.assets.loadImg("background", "/game/assets/title_screen/background.png"),
-      this.assets.loadImg("cursor", "/game/assets/title_screen/cursor.png"),
-      this.assets.loadSound("se1", "/game/assets/title_screen/se1.mp3"),
-      this.assets.loadSound("se2", "/game/assets/title_screen/se2.mp3"),
+      this.assets.loadImg("background", "./game/assets/title_screen/background.png"),
+      this.assets.loadImg("cursor", "./game/assets/title_screen/cursor.png"),
+      this.assets.loadSound("se1", "./game/assets/title_screen/se1.mp3"),
+      this.assets.loadSound("se2", "./game/assets/title_screen/se2.mp3"),
     ];
     this.assets.setImg("fonts", changeColor(
       this.game.assets.getImg("fonts"),

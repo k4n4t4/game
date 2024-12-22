@@ -1,6 +1,6 @@
-import Scene from "/game/libs/scene.js";
-import { drawText } from "/game/utils/fonts.js";
-import { changeColor } from "/game/utils/effect.js";
+import Scene from "./../libs/scene.js";
+import { drawText } from "./../utils/fonts.js";
+import { changeColor } from "./../utils/effect.js";
 
 
 class DebugParticle {

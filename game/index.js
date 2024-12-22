@@ -1,18 +1,18 @@
 // Utils
-import createCanvas from "/game/utils/canvas.js";
+import createCanvas from "./utils/canvas.js";
 
 // Libs
-import Keyboard from "/game/libs/keyboard.js";
-import Mouse from "/game/libs/mouse.js";
-import Assets from "/game/libs/assets.js";
-import Scenes from "/game/libs/scenes.js";
-import Flags from "/game/libs/flags.js";
-import Events from "/game/libs/events.js";
+import Keyboard from "./libs/keyboard.js";
+import Mouse from "./libs/mouse.js";
+import Assets from "./libs/assets.js";
+import Scenes from "./libs/scenes.js";
+import Flags from "./libs/flags.js";
+import Events from "./libs/events.js";
 
 // Scenes
-import Title from "/game/scenes/title.js";
-import Main from "/game/scenes/main.js";
-import Debug from "/game/scenes/debug.js";
+import Title from "./scenes/title.js";
+import Main from "./scenes/main.js";
+import Debug from "./scenes/debug.js";
 
 
 export default class Game {
@@ -41,7 +41,7 @@ export default class Game {
 
   load() {
     const promises = [
-      this.assets.loadImg("fonts", "/game/assets/common/fonts.png"),
+      this.assets.loadImg("fonts", "./game/assets/common/fonts.png"),
     ];
     return Promise.all(promises)
   }

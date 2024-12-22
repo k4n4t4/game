@@ -1,4 +1,4 @@
-import Scene from "/game/libs/scene.js";
+import Scene from "./../libs/scene.js";
 
 
 export default class Main extends Scene {
@@ -19,8 +19,8 @@ export default class Main extends Scene {
 
   load() {
     const promises = [
-      this.assets.loadImg("player", "/game/assets/main/player.png"),
-      this.assets.loadImg("tile", "/game/assets/main/tile.png"),
+      this.assets.loadImg("player", "./game/assets/main/player.png"),
+      this.assets.loadImg("tile", "./game/assets/main/tile.png"),
     ];
 
     return super.load(promises);
