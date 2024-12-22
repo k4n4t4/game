@@ -28,6 +28,8 @@ export default class Mouse {
     { name: "up" },
     { name: "move" },
     { name: "click" },
+    { name: "touchstart" },
+    { name: "touchend" },
     { name: "touchmove" },
   ]);
   game;
@@ -108,7 +110,7 @@ export default class Mouse {
       [this.old_x, this.old_y] = [this.x, this.y];
       [this.x, this.y] = calcMouseCoord(touches[0]);
 
-      this.event.emit("down", e);
+      this.event.emit("touchstart", e);
     });
 
     game.canvas.addEventListener('touchend', e => {
@@ -116,7 +118,7 @@ export default class Mouse {
 
       this.flag.set("touch", false);
 
-      this.event.emit("up", e);
+      this.event.emit("touchend", e);
     });
 
     game.canvas.addEventListener('touchmove', e => {
