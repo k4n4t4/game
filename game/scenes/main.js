@@ -1,5 +1,7 @@
 import Scene from "./../libs/scene.js";
 
+import Player from "./../sprites/player.js";
+
 
 export default class Main extends Scene {
   constructor(game, _config={}) {
@@ -7,14 +9,14 @@ export default class Main extends Scene {
       name: "main",
       layerNum: 1,
     });
+
+    this.event.add("onload", () => {
+      this.player = new Player(this, 0, 0);
+    });
   }
 
   init() {
     super.init();
-    this.player = {
-      x: 0,
-      y: 0,
-    }
   }
 
   load() {
@@ -27,25 +29,10 @@ export default class Main extends Scene {
   }
 
   update() {
-    const game = this.game;
-    const key = game.key;
-    const player = this.player;
+    this.player.update();
 
-    if (key.down("ArrowRight")) {
-      player.x++;
-    }
-    if (key.down("ArrowLeft")) {
-      player.x--;
-    }
-    if (key.down("ArrowUp")) {
-      player.y--;
-    }
-    if (key.down("ArrowDown")) {
-      player.y++;
-    }
-
-    if (key.down("q")) {
-      game.event.emit("scene", "title");
+    if (this.game.key.down("q")) {
+      this.game.event.emit("scene", "title");
     }
   }
 
@@ -53,16 +40,10 @@ export default class Main extends Scene {
     const game = this.game;
     const ctx = this.layer[0].context;
 
-    const player = this.player;
-
     ctx.fillStyle = "#4060A0";
     ctx.fillRect(0, 0, game.width, game.height);
 
-    ctx.drawImage(
-      this.assets.images.player,
-      0, 0, 16, 16,
-      player.x, player.y, 16, 16
-    );
+    this.player.draw();
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 16; j++) {

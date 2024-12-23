@@ -1,4 +1,4 @@
-export default class Player extends Sprite {
+export default class Sprite {
   scene;
   game;
   name = "sprite";
