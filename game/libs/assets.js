@@ -4,7 +4,7 @@ export default class Assets {
   loadImg(name, path) {
     return new Promise((resolve, reject) => {
       const img = new Image();
-      img.src = path
+      img.src = path;
       img.onload = _ => {
         this.setImg(name, img);
         resolve(img);

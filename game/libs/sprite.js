@@ -5,7 +5,7 @@ export default class Player extends Sprite {
     this.game = game;
   }
 
-  draw(ctx) {}
+  draw() {}
 
   update() {}
 }
