@@ -99,6 +99,10 @@ export default class Mouse {
     });
     game.canvas.addEventListener('mouseleave', e => {
       e.preventDefault();
+      this.flag.set("left", false);
+      this.flag.set("middle", false);
+      this.flag.set("right", false);
+      this.flag.set("click", false);
     });
 
     game.canvas.addEventListener('touchstart', e => {
