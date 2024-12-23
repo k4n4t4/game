@@ -28,10 +28,6 @@ export default class Player extends Sprite {
     if (key.down("ArrowDown")) {
       this.y++;
     }
-
-    if (key.down("q")) {
-      game.event.emit("scene", "title");
-    }
   }
 
   draw() {
