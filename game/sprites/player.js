@@ -1,7 +1,8 @@
 import Sprite from "./../libs/sprite.js";
 
 export default class Player extends Sprite {
-  constructor() {
+  constructor(scene) {
+    super(scene);
 
   }
 }
