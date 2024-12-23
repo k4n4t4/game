@@ -5,4 +5,13 @@ export default class Player extends Sprite {
     super(scene);
 
   }
+
+  update() {
+
+  }
+
+  draw() {
+    const ctx = this.scene.layer[0].context;
+
+  }
 }

@@ -65,7 +65,7 @@ class DebugParticles {
       const v = Math.random() * 3 + 2;
       const vx = Math.cos(angle) * v + this.scene.game.mouse.vx;
       const vy = - Math.sin(angle) * v + this.scene.game.mouse.vy;
-      this.particles.add(new DebugParticle(this.game, this.x, this.y, vx, vy));
+      this.particles.add(new DebugParticle(this.scene, this.x, this.y, vx, vy));
     }
   }
 
@@ -96,7 +96,7 @@ export default class Debug extends Scene {
       layerNum: 1,
     });
 
-    this.particles = new DebugParticles(game);
+    this.particles = new DebugParticles(this);
   }
 
   init() {
