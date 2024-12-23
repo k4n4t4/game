@@ -4,15 +4,15 @@ import { changeColor } from "./../utils/effect.js";
 
 
 class DebugParticle {
-  game;
+  scene;
   x;
   y;
   vx;
   vy;
   lifetime = 100;
 
-  constructor(game, x, y, vx, vy) {
-    this.game = game;
+  constructor(scene, x, y, vx, vy) {
+    this.scene = scene;
 
     this.x = x;
     this.y = y;
@@ -28,28 +28,30 @@ class DebugParticle {
     this.vx += gx;
     this.vy += gy;
 
-    if (this.y > this.game.height - 1) {
-      this.y = this.game.height - 1;
+    if (this.y > this.scene.game.height - 1) {
+      this.y = this.scene.game.height - 1;
       this.vy *= -0.5;
     }
 
     this.lifetime--;
   }
 
-  draw(ctx) {
+  draw() {
+    const ctx = this.scene.layer[0].context;
+
     ctx.fillStyle = "#ff0000";
     ctx.fillRect(Math.floor(this.x), Math.floor(this.y), 1, 1);
   }
 }
 
 class DebugParticles {
-  game;
+  scene;
   x = 0;
   y = 0;
   particles = new Set();
 
-  constructor(game) {
-    this.game = game;
+  constructor(scene) {
+    this.scene = scene;
   }
 
   move(x, y) {
@@ -61,8 +63,8 @@ class DebugParticles {
     for (let i = 0; i < 32; i++) {
       const angle = Math.random() * Math.PI * 2;
       const v = Math.random() * 3 + 2;
-      const vx = Math.cos(angle) * v + this.game.mouse.vx;
-      const vy = - Math.sin(angle) * v + this.game.mouse.vy;
+      const vx = Math.cos(angle) * v + this.scene.game.mouse.vx;
+      const vy = - Math.sin(angle) * v + this.scene.game.mouse.vy;
       this.particles.add(new DebugParticle(this.game, this.x, this.y, vx, vy));
     }
   }
@@ -77,9 +79,9 @@ class DebugParticles {
     }
   }
 
-  draw(ctx) {
+  draw() {
     for (const particle of this.particles) {
-      particle.draw(ctx);
+      particle.draw();
     }
   }
 }
@@ -162,7 +164,7 @@ export default class Debug extends Scene {
       0, 0
     );
 
-    this.particles.draw(ctx);
+    this.particles.draw();
 
     super.draw();
   }
