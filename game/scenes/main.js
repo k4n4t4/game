@@ -64,6 +64,16 @@ export default class Main extends Scene {
       player.x, player.y, 16, 16
     );
 
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 16; j++) {
+        ctx.drawImage(
+          this.assets.images.tile,
+          0, 0, 16, 16,
+          16 * j, 16 * 11 - 16 * i, 16, 16
+        );
+      }
+    }
+
     super.draw();
   }
 }
