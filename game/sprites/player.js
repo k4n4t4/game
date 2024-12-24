@@ -13,11 +13,13 @@ export default class Player extends Sprite {
     {name: "enter_ground", callbacks: [
       () => {
         console.log("enter");
+        this.flag.set("on_ground", true);
       }
     ]},
     {name: "leave_ground", callbacks: [
       () => {
         console.log("leave");
+        this.flag.set("on_ground", false);
       }
     ]},
   ]);
@@ -53,10 +55,18 @@ export default class Player extends Sprite {
     this.velocity.y += g;
 
     if (this.y >= 16 * 8) {
-      this.y = 16 * 8;
-      this.flag.set("on_ground", true);
+      if (!this.flag.get("on_ground")) {
+        this.event.emit("enter_ground");
+      }
     } else {
-      this.flag.set("on_ground", false);
+      if (this.flag.get("on_ground")) {
+        this.event.emit("leave_ground");
+      }
+    }
+
+    if (this.flag.get("on_ground")) {
+      this.y = 16 * 8;
+      this.velocity.y = 0;
     }
   }
 
@@ -66,7 +76,7 @@ export default class Player extends Sprite {
     ctx.drawImage(
       this.scene.assets.images.player,
       0, 0, 16, 16,
-      this.x, this.y, 16, 16
+      Math.floor(this.x), Math.floor(this.y), 16, 16
     );
   }
 }
