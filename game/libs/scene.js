@@ -42,12 +42,15 @@ export default class Scene {
   }
 
   init() {
+    let load = null;
     if (!this.flag.get("loaded")) {
       this.game.flag.set("pause", true);
-      this.load().then(_ => {
+      load = this.load();
+      load.then(_ => {
         this.game.flag.set("pause", false);
       });
     }
+    return load;
   }
 
   update() {}
