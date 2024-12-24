@@ -1,9 +1,26 @@
 import Sprite from "./../libs/sprite.js";
+import Flag from "./../libs/flags.js";
+import Events from "./../libs/events.js";
 
 export default class Player extends Sprite {
   x;
   y;
   velocity = {x: 0, y: 0};
+  flag = new Flag([
+    ["on_ground", false],
+  ]);
+  event = new Events([
+    {name: "enter_ground", callbacks: [
+      () => {
+        console.log("enter");
+      }
+    ]},
+    {name: "leave_ground", callbacks: [
+      () => {
+        console.log("leave");
+      }
+    ]},
+  ]);
 
   constructor(scene, x, y, setup) {
     super(scene);
@@ -19,20 +36,27 @@ export default class Player extends Sprite {
     const game = this.game;
     const key = game.key;
 
-    const g = 1.0;
     this.x += this.velocity.x;
     this.y += this.velocity.y;
-    this.velocity.y += g;
-
 
     if (key.down("ArrowRight")) {
-      this.x++;
+      this.velocity.x += 1;
     }
     if (key.down("ArrowLeft")) {
-      this.x--;
+      this.velocity.x -= 1;
     }
     if (key.down(" ")) {
       this.velocity.y = -5;
+    }
+
+    const g = 1.0;
+    this.velocity.y += g;
+
+    if (this.y >= 16 * 8) {
+      this.y = 16 * 8;
+      this.flag.set("on_ground", true);
+    } else {
+      this.flag.set("on_ground", false);
     }
   }
 
