@@ -3,18 +3,27 @@ import Sprite from "./../libs/sprite.js";
 export default class Player extends Sprite {
   x;
   y;
+  velocity = {x: 0, y: 0};
 
-  constructor(scene, x, y) {
+  constructor(scene, x, y, setup) {
     super(scene);
     this.name = "player";
 
     this.x = x;
     this.y = y;
+
+    if (setup) setup(this);
   }
 
   update() {
     const game = this.game;
     const key = game.key;
+
+    const g = 1.0;
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
+    this.velocity.y += g;
+
 
     if (key.down("ArrowRight")) {
       this.x++;
@@ -22,11 +31,8 @@ export default class Player extends Sprite {
     if (key.down("ArrowLeft")) {
       this.x--;
     }
-    if (key.down("ArrowUp")) {
-      this.y--;
-    }
-    if (key.down("ArrowDown")) {
-      this.y++;
+    if (key.down(" ")) {
+      this.velocity.y = -5;
     }
   }
 
