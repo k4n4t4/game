@@ -49,5 +49,8 @@ export default class Assets {
     this.getSound(name).loop = true;
     this.getSound(name).play();
   }
+  loopStop(name) {
+    this.getSound(name).loop = false;
+  }
 
 }
