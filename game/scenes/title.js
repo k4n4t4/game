@@ -34,6 +34,7 @@ export default class Title extends Scene {
     ];
 
     this.event.add("onload", () => {
+      this.assets.loop("bgm1");
       game.key.event.add("down", e => {
         if (game.scene.current_name === this.name) {
           if (e.key === "Enter") {
@@ -70,6 +71,7 @@ export default class Title extends Scene {
       this.assets.loadImg("cursor", "./game/assets/title_screen/cursor.png"),
       this.assets.loadSound("se1", "./game/assets/title_screen/se1.mp3"),
       this.assets.loadSound("se2", "./game/assets/title_screen/se2.mp3"),
+      this.assets.loadSound("bgm1", "./game/assets/title_screen/bgm1.mp3"),
     ];
     this.assets.setImg("fonts", changeColor(
       this.game.assets.getImg("fonts"),

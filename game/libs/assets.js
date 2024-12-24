@@ -44,5 +44,10 @@ export default class Assets {
     this.getSound(name).currentTime = 0;
     this.getSound(name).play();
   }
+  loop(name) {
+    this.getSound(name).currentTime = 0;
+    this.getSound(name).loop = true;
+    this.getSound(name).play();
+  }
 
 }
