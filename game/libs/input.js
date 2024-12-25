@@ -2,6 +2,40 @@ import Events from "./events.js";
 import Flags from "./flags.js";
 
 
+export class Keyboard {
+  flag = new Flags();
+  event = new Events([
+    { name: "down" },
+    { name: "up" },
+    { name: "press" },
+  ]);
+  game;
+
+  constructor(game) {
+    this.game = game;
+
+    window.addEventListener('keydown', e => {
+      e.preventDefault();
+      this.flag.set(e.key, true);
+      this.event.emit("down", e);
+    });
+    window.addEventListener('keyup', e => {
+      e.preventDefault();
+      this.flag.set(e.key, false);
+      this.event.emit("up", e);
+    });
+    window.addEventListener('keypress', e => {
+      e.preventDefault();
+      this.event.emit("press", e);
+    });
+  }
+
+  down(name) {
+    return this.flag.get(name);
+  }
+}
+
+
 function calcMouseCoord(e) {
   const rect = e.target.getBoundingClientRect();
   const vx = e.clientX - rect.left;
@@ -15,7 +49,7 @@ function calcMouseCoord(e) {
 }
 
 
-export default class Mouse {
+export class Mouse {
   flag = new Flags([
     ["left", false],
     ["middle", false],

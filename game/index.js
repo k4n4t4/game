@@ -2,8 +2,7 @@
 import createCanvas from "./utils/canvas.js";
 
 // Libs
-import Keyboard from "./libs/keyboard.js";
-import Mouse from "./libs/mouse.js";
+import { Keyboard, Mouse } from "./libs/input.js";
 import Assets from "./libs/assets.js";
 import Scenes from "./libs/scenes.js";
 import Flags from "./libs/flags.js";
