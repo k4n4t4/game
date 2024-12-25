@@ -22,7 +22,14 @@ export default class Game {
     ["started", false],
     ["pause", false],
   ]);
-  event = new Events();
+  event = new Events([
+    {
+      name: "scene",
+      callbacks: [
+        name => { this.scene.change(name).init() },
+      ],
+    },
+  ]);
   key;
   mouse;
   canvas;
@@ -52,10 +59,6 @@ export default class Game {
       new Main(this),
       new Debug(this),
     ]);
-
-    this.event.create("scene", [
-      name => { this.scene.change(name).init() }
-    ])
 
     this.event.emit("scene", "title");
     this.loop();
