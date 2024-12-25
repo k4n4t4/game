@@ -34,30 +34,40 @@ export default class Title extends Scene {
     ];
 
     this.event.add("onload", () => {
-      this.assets.loop("bgm1");
-      game.key.event.add("down", e => {
-        if (game.scene.current_name === this.name) {
-          if (e.key === "Enter") {
-            this.assets.play("se2");
-            this.items[this.cursor].func();
-          }
-          if (e.key === "ArrowUp") {
-            this.assets.play("se1");
-            this.cursor--;
-          }
-          if (e.key === "ArrowDown") {
-            this.assets.play("se1");
-            this.cursor++;
-          }
-          if (this.cursor < 0) {
-            this.cursor = this.items.length - 1;
-          }
-          if (this.cursor > this.items.length - 1) {
-            this.cursor = 0;
-          }
-        }
-      });
     });
+  }
+
+  onload() {
+    this.game.key.event.add("down", e => {
+      if (this.game.scene.current_name === this.name) {
+        if (e.key === "Enter") {
+          this.assets.play("se2");
+          this.items[this.cursor].func();
+        }
+        if (e.key === "ArrowUp") {
+          this.assets.play("se1");
+          this.cursor--;
+        }
+        if (e.key === "ArrowDown") {
+          this.assets.play("se1");
+          this.cursor++;
+        }
+        if (this.cursor < 0) {
+          this.cursor = this.items.length - 1;
+        }
+        if (this.cursor > this.items.length - 1) {
+          this.cursor = 0;
+        }
+      }
+    });
+  }
+
+  onenter() {
+    this.assets.loop("bgm1");
+  }
+
+  onleave() {
+    this.assets.loopStop("bgm1");
   }
 
   init() {

@@ -50,7 +50,9 @@ export default class Assets {
     this.getSound(name).play();
   }
   loopStop(name) {
+    this.getSound(name).currentTime = 0;
     this.getSound(name).loop = false;
+    this.getSound(name).pause();
   }
 
 }

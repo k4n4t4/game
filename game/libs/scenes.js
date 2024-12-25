@@ -13,6 +13,7 @@ export default class Scenes {
   }
 
   change(name) {
+    this.current?.event.emit("onleave");
     this.current_name = name;
     return this.current;
   }

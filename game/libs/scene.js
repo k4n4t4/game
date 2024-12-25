@@ -9,7 +9,18 @@ export default class Scene {
     ["loaded", false],
   ]);
   event = new Events([
-    { name: "onload" },
+    {
+      name: "onload",
+      callbacks: [ () => { this.onload() } ],
+    },
+    {
+      name: "onenter",
+      callbacks: [ () => { this.onenter() } ],
+    },
+    {
+      name: "onleave",
+      callbacks: [ () => { this.onleave() } ],
+    },
   ]);
   name;
   game;
@@ -32,6 +43,10 @@ export default class Scene {
     }
   }
 
+  onload() {}
+  onenter() {}
+  onleave() {}
+
   load(promises=[]) {
     const promise = Promise.all(promises);
     promise.then(_ => {
@@ -48,7 +63,10 @@ export default class Scene {
       load = this.load();
       load.then(_ => {
         this.game.flag.set("pause", false);
+        this.event.emit("onenter");
       });
+    } else {
+      this.event.emit("onenter");
     }
     return load;
   }
