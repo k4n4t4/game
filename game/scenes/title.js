@@ -1,39 +1,38 @@
 import Scene from "./../libs/scene.js";
+import Layer from "./../libs/layer.js";
 import { drawText } from "./../utils/fonts.js";
 import { changeColor } from "./../utils/effect.js";
 
 
 export default class Title extends Scene {
-  items;
+  items = [
+    {
+      name: "Start",
+      func: () => {
+        this.game.event.emit("scene", "main");
+      },
+    },
+    {
+      name: "Debug",
+      func: () => {
+        this.game.event.emit("scene", "debug");
+      },
+    },
+    {
+      name: "Exit",
+      func: () => {
+        window.location.reload();
+      },
+    },
+  ];
 
   constructor(game, _config={}) {
-    super(game, {
-      name: "title",
-      layerNum: 1,
-    });
+    super(game, "title");
 
-    this.items = [
-      {
-        name: "Start",
-        func: () => {
-          game.event.emit("scene", "main");
-        },
-      },
-      {
-        name: "Debug",
-        func: () => {
-          game.event.emit("scene", "debug");
-        },
-      },
-      {
-        name: "Exit",
-        func: () => {
-          window.location.reload();
-        },
-      },
-    ];
-
-    this.event.add("onload", () => {
+    this.layer = new Layer({
+      width: game.canvas.width,
+      height: game.canvas.height,
+      num: 1,
     });
   }
 
@@ -96,7 +95,7 @@ export default class Title extends Scene {
   }
 
   draw() {
-    const ctx = this.layer[0].context;
+    const ctx = this.layer.get(0).context;
 
     ctx.drawImage(this.assets.getImg("background"), 0, 0);
 
@@ -109,6 +108,6 @@ export default class Title extends Scene {
       16 * 6, 16 * (7 + i));
     }
 
-    super.draw();
+    this.layer.drawAll(this.game.context);
   }
 }
