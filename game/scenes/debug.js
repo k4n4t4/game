@@ -1,4 +1,5 @@
 import Scene from "./../libs/scene.js";
+import Assets from "./../libs/assets.js";
 import { drawText } from "./../utils/fonts.js";
 import { changeColor } from "./../utils/effect.js";
 import Layer from "./../libs/layer.js";
@@ -89,6 +90,7 @@ class DebugParticles {
 
 
 export default class Debug extends Scene {
+  assets = new Assets();
   sprites;
 
   constructor(root, _config={}) {

@@ -1,10 +1,12 @@
 import Scene from "./../libs/scene.js";
 import Layer from "./../libs/layer.js";
+import Assets from "./../libs/assets.js";
 import { drawText } from "./../utils/fonts.js";
 import { changeColor } from "./../utils/effect.js";
 
 
 export default class Title extends Scene {
+  assets = new Assets();
   items = [
     {
       name: "Start",

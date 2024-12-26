@@ -1,10 +1,8 @@
-import Assets from "./assets.js";
 import Events from "./events.js";
 import Flags from "./flags.js";
 
 
 export default class Scene {
-  assets = new Assets();
   flag = new Flags([
     ["loaded", false],
   ]);

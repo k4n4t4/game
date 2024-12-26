@@ -1,10 +1,12 @@
 import Layer from "./../libs/layer.js";
 import Scene from "./../libs/scene.js";
-
+import Assets from "./../libs/assets.js";
 import Player from "./../sprites/player.js";
 
 
 export default class Main extends Scene {
+  assets = new Assets();
+
   constructor(root, _config={}) {
     super(root, "main");
 
