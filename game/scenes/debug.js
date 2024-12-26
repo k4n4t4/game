@@ -105,8 +105,7 @@ export default class Debug extends Scene {
     this.particles = new DebugParticles(this);
   }
 
-  init() {
-    super.init();
+  onenter() {
     this.frame = 0;
   }
 

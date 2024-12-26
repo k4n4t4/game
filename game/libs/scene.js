@@ -5,6 +5,7 @@ import Flags from "./flags.js";
 export default class Scene {
   flag = new Flags([
     ["loaded", false],
+    ["active", false],
   ]);
   event = new Events([
     {
@@ -13,11 +14,17 @@ export default class Scene {
     },
     {
       name: "onenter",
-      callbacks: [ () => { this.onenter() } ],
+      callbacks: [ () => {
+        this.flag.set("active", true);
+        this.onenter();
+      } ],
     },
     {
       name: "onleave",
-      callbacks: [ () => { this.onleave() } ],
+      callbacks: [ () => {
+        this.flag.set("active", false);
+        this.onleave();
+      } ],
     },
   ]);
   name;
@@ -32,6 +39,18 @@ export default class Scene {
   onenter() {}
   onleave() {}
 
+  enter() {
+    if (!this.flag.get("active")) {
+      this.event.emit("onenter");
+    }
+  }
+
+  leave() {
+    if (this.flag.get("active")) {
+      this.event.emit("onleave");
+    }
+  }
+
   load(promises=[]) {
     const promise = Promise.all(promises);
     promise.then(_ => {
@@ -39,21 +58,6 @@ export default class Scene {
       this.event.emit("onload");
     });
     return promise;
-  }
-
-  init() {
-    let load = null;
-    if (!this.flag.get("loaded")) {
-      this.root.flag.set("pause", true);
-      load = this.load();
-      load.then(_ => {
-        this.root.flag.set("pause", false);
-        this.event.emit("onenter");
-      });
-    } else {
-      this.event.emit("onenter");
-    }
-    return load;
   }
 
   update() {}

@@ -25,7 +25,17 @@ export default class Game {
     {
       name: "scene",
       callbacks: [
-        name => { this.scene.change(name).init() },
+        name => {
+          if (this.scene.get(name).flag.get("loaded")) {
+            this.scene.change(name);
+          } else {
+            this.flag.set("pause", true);
+            this.scene.load(name).then(() => {
+              this.scene.change(name);
+              this.flag.set("pause", false);
+            });
+          }
+        },
       ],
     },
   ]);

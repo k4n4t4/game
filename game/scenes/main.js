@@ -21,10 +21,6 @@ export default class Main extends Scene {
     this.player = new Player(this, 0, 0);
   }
 
-  init() {
-    super.init();
-  }
-
   load() {
     const promises = [
       this.assets.loadImg("player", "./game/assets/main/player.png"),

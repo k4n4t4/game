@@ -13,8 +13,9 @@ export default class Scenes {
   }
 
   change(name) {
-    this.current?.event.emit("onleave");
+    this.current?.leave();
     this.current_name = name;
+    this.current.enter();
     return this.current;
   }
 
@@ -36,5 +37,9 @@ export default class Scenes {
 
   get(name=this.current_name) {
     return this.scenes.get(name);
+  }
+
+  load(name) {
+    return this.get(name).load();
   }
 }

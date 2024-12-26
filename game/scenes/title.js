@@ -65,15 +65,11 @@ export default class Title extends Scene {
 
   onenter() {
     this.assets.loop("bgm1");
+    this.cursor = 0;
   }
 
   onleave() {
     this.assets.loopStop("bgm1");
-  }
-
-  init() {
-    super.init();
-    this.cursor = 0;
   }
 
   load() {
