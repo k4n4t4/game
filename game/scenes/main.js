@@ -18,7 +18,10 @@ export default class Main extends Scene {
   }
 
   onload() {
-    this.player = new Player(this, 0, 0);
+    this.player = new Player(this, self => {
+      self.x = this.root.width >> 1;
+      self.y = this.root.height >> 1;
+    });
   }
 
   load() {

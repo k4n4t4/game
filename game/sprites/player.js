@@ -3,8 +3,8 @@ import Flag from "./../libs/flags.js";
 import Events from "./../libs/events.js";
 
 export default class Player extends Sprite {
-  x;
-  y;
+  x = 0;
+  y = 0;
   velocity = {x: 0, y: 0};
   flag = new Flag([
     ["on_ground", false],
@@ -22,12 +22,9 @@ export default class Player extends Sprite {
     ]},
   ]);
 
-  constructor(scene, x, y, setup) {
+  constructor(scene, setup) {
     super(scene);
     this.name = "player";
-
-    this.x = x;
-    this.y = y;
 
     if (setup) setup(this);
 
