@@ -38,6 +38,7 @@ export default class Game {
     this.canvas = createCanvas(config.canvas);
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
+
     this.key = new Keyboard(this);
     this.mouse = new Mouse(this);
   }
