@@ -12,13 +12,11 @@ export default class Player extends Sprite {
   event = new Events([
     {name: "enter_ground", callbacks: [
       () => {
-        console.log("enter");
         this.flag.set("on_ground", true);
       }
     ]},
     {name: "leave_ground", callbacks: [
       () => {
-        console.log("leave");
         this.flag.set("on_ground", false);
       }
     ]},
@@ -32,6 +30,11 @@ export default class Player extends Sprite {
     this.y = y;
 
     if (setup) setup(this);
+
+    this.event.add("enter_ground", () => {
+      this.y = 16 * 8;
+      this.velocity.y = 0;
+    });
   }
 
   update() {
@@ -51,8 +54,15 @@ export default class Player extends Sprite {
       this.velocity.y = -5;
     }
 
-    const g = 1.0;
-    this.velocity.y += g;
+    if (!this.flag.get("on_ground")) {
+      const g = 1.0;
+      const f = 0.7;
+      this.velocity.x *= f
+      this.velocity.y += g;
+    } else {
+      const f = 0.6;
+      this.velocity.x *= f
+    }
 
     if (this.y >= 16 * 8) {
       if (!this.flag.get("on_ground")) {
@@ -62,11 +72,6 @@ export default class Player extends Sprite {
       if (this.flag.get("on_ground")) {
         this.event.emit("leave_ground");
       }
-    }
-
-    if (this.flag.get("on_ground")) {
-      this.y = 16 * 8;
-      this.velocity.y = 0;
     }
   }
 
