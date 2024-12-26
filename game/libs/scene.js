@@ -24,23 +24,10 @@ export default class Scene {
   ]);
   name;
   game;
-  layerNum;
-  layer = [];
 
-  constructor(game, config={}) {
-    this.name = config.name || "scene";
+  constructor(game, name="scene") {
+    this.name = name;
     this.game = game;
-
-    this.layerNum = config.layerNum || 0;
-
-    for (let i = 0; i < this.layerNum; i++) {
-      const layer = {};
-      layer.canvas = document.createElement('canvas');
-      layer.context = layer.canvas.getContext('2d');
-      layer.canvas.width = game.canvas.width;
-      layer.canvas.height = game.canvas.height;
-      this.layer.push(layer);
-    }
   }
 
   onload() {}
@@ -72,10 +59,5 @@ export default class Scene {
   }
 
   update() {}
-
-  draw() {
-    for (const layer of this.layer) {
-      this.game.context.drawImage(layer.canvas, 0, 0);
-    }
-  }
+  draw() {}
 }
