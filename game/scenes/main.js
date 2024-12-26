@@ -1,3 +1,4 @@
+import Layer from "./../libs/layer.js";
 import Scene from "./../libs/scene.js";
 
 import Player from "./../sprites/player.js";
@@ -5,14 +6,17 @@ import Player from "./../sprites/player.js";
 
 export default class Main extends Scene {
   constructor(game, _config={}) {
-    super(game, {
-      name: "main",
-      layerNum: 1,
-    });
+    super(game, "main");
 
-    this.event.add("onload", () => {
-      this.player = new Player(this, 0, 0);
+    this.layer = new Layer({
+      width: game.canvas.width,
+      height: game.canvas.height,
+      num: 1,
     });
+  }
+
+  onload() {
+    this.player = new Player(this, 0, 0);
   }
 
   init() {
@@ -38,7 +42,7 @@ export default class Main extends Scene {
 
   draw() {
     const game = this.game;
-    const ctx = this.layer[0].context;
+    const ctx = this.layer.get(0).context;
 
     ctx.fillStyle = "#4060A0";
     ctx.fillRect(0, 0, game.width, game.height);
@@ -55,6 +59,6 @@ export default class Main extends Scene {
       }
     }
 
-    super.draw();
+    this.layer.drawAll(this.game.context);
   }
 }

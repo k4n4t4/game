@@ -1,6 +1,7 @@
 import Scene from "./../libs/scene.js";
 import { drawText } from "./../utils/fonts.js";
 import { changeColor } from "./../utils/effect.js";
+import Layer from "./../libs/layer.js";
 
 
 class DebugParticle {
@@ -37,7 +38,7 @@ class DebugParticle {
   }
 
   draw() {
-    const ctx = this.scene.layer[0].context;
+    const ctx = this.scene.layer.get(0).context;
 
     ctx.fillStyle = "#ff0000";
     ctx.fillRect(Math.floor(this.x), Math.floor(this.y), 1, 1);
@@ -91,9 +92,12 @@ export default class Debug extends Scene {
   sprites;
 
   constructor(game, _config={}) {
-    super(game, {
-      name: "debug",
-      layerNum: 1,
+    super(game, "debug");
+
+    this.layer = new Layer({
+      width: game.canvas.width,
+      height: game.canvas.height,
+      num: 1,
     });
 
     this.particles = new DebugParticles(this);
@@ -131,7 +135,7 @@ export default class Debug extends Scene {
   }
 
   draw() {
-    const ctx = this.layer[0].context;
+    const ctx = this.layer.get(0).context;
 
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, this.game.width, this.game.height);
@@ -166,6 +170,6 @@ export default class Debug extends Scene {
 
     this.particles.draw();
 
-    super.draw();
+    this.layer.drawAll(this.game.context);
   }
 }
