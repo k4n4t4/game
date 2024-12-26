@@ -40,7 +40,7 @@ export default class Title extends Scene {
 
   onload() {
     this.root.key.event.add("down", e => {
-      if (this.root.scene.current_name === this.name) {
+      if (this.flag.get("active")) {
         if (e.key === "Enter") {
           this.assets.play("se2");
           this.items[this.cursor].func();
