@@ -45,7 +45,6 @@ function calcMouseCoord(e) {
   return [x, y];
 }
 
-
 export class Mouse {
   flag = new Flags([
     ["left", false],
