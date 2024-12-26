@@ -9,22 +9,19 @@ export class Keyboard {
     { name: "up" },
     { name: "press" },
   ]);
-  game;
 
-  constructor(game) {
-    this.game = game;
-
-    window.addEventListener('keydown', e => {
+  constructor(target) {
+    target.addEventListener('keydown', e => {
       e.preventDefault();
       this.flag.set(e.key, true);
       this.event.emit("down", e);
     });
-    window.addEventListener('keyup', e => {
+    target.addEventListener('keyup', e => {
       e.preventDefault();
       this.flag.set(e.key, false);
       this.event.emit("up", e);
     });
-    window.addEventListener('keypress', e => {
+    target.addEventListener('keypress', e => {
       e.preventDefault();
       this.event.emit("press", e);
     });
@@ -66,7 +63,6 @@ export class Mouse {
     { name: "touchend" },
     { name: "touchmove" },
   ]);
-  game;
   x = 0;
   y = 0;
   old_x = 0;
@@ -75,10 +71,9 @@ export class Mouse {
   get vx() { return this.x - this.old_x }
   get vy() { return this.y - this.old_y }
 
-  constructor(game) {
-    this.game = game;
+  constructor(canvas) {
 
-    game.canvas.addEventListener('click', e => {
+    canvas.addEventListener('click', e => {
       e.preventDefault();
 
       [this.x, this.y] = calcMouseCoord(e);
@@ -87,7 +82,7 @@ export class Mouse {
       this.event.emit("click", e);
     });
 
-    game.canvas.addEventListener('mousedown', e => {
+    canvas.addEventListener('mousedown', e => {
       e.preventDefault();
 
       switch (e.button) {
@@ -103,7 +98,7 @@ export class Mouse {
       this.event.emit("down", e);
     });
 
-    game.canvas.addEventListener('mouseup', e => {
+    canvas.addEventListener('mouseup', e => {
       e.preventDefault();
 
       switch (e.button) {
@@ -116,7 +111,7 @@ export class Mouse {
       this.event.emit("up", e);
     });
 
-    game.canvas.addEventListener('mousemove', e => {
+    canvas.addEventListener('mousemove', e => {
       e.preventDefault();
 
       [this.old_x, this.old_y] = [this.x, this.y];
@@ -125,13 +120,13 @@ export class Mouse {
       this.event.emit("move", e);
     });
 
-    game.canvas.addEventListener('contextmenu', e => {
+    canvas.addEventListener('contextmenu', e => {
       e.preventDefault();
     });
-    game.canvas.addEventListener('mouseenter', e => {
+    canvas.addEventListener('mouseenter', e => {
       e.preventDefault();
     });
-    game.canvas.addEventListener('mouseleave', e => {
+    canvas.addEventListener('mouseleave', e => {
       e.preventDefault();
       this.flag.set("left", false);
       this.flag.set("middle", false);
@@ -139,7 +134,7 @@ export class Mouse {
       this.flag.set("click", false);
     });
 
-    game.canvas.addEventListener('touchstart', e => {
+    canvas.addEventListener('touchstart', e => {
       const touches = e.targetTouches;
 
       this.flag.set("touch", true);
@@ -150,13 +145,13 @@ export class Mouse {
       this.event.emit("touchstart", e);
     });
 
-    game.canvas.addEventListener('touchend', e => {
+    canvas.addEventListener('touchend', e => {
       this.flag.set("touch", false);
 
       this.event.emit("touchend", e);
     });
 
-    game.canvas.addEventListener('touchmove', e => {
+    canvas.addEventListener('touchmove', e => {
       e.preventDefault();
       const touches = e.targetTouches;
 
