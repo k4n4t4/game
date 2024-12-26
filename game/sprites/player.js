@@ -71,7 +71,7 @@ export default class Player extends Sprite {
   }
 
   draw() {
-    const ctx = this.scene.layer[0].context;
+    const ctx = this.scene.layer.get(0).context;
 
     ctx.drawImage(
       this.scene.assets.images.player,
