@@ -39,8 +39,8 @@ export default class Game {
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
 
-    this.key = new Keyboard(this);
-    this.mouse = new Mouse(this);
+    this.key = new Keyboard(window);
+    this.mouse = new Mouse(this.canvas);
   }
 
   get width() { return this.canvas.width }
