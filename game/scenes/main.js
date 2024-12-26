@@ -5,12 +5,12 @@ import Player from "./../sprites/player.js";
 
 
 export default class Main extends Scene {
-  constructor(game, _config={}) {
-    super(game, "main");
+  constructor(root, _config={}) {
+    super(root, "main");
 
     this.layer = new Layer({
-      width: game.canvas.width,
-      height: game.canvas.height,
+      width: root.canvas.width,
+      height: root.canvas.height,
       num: 1,
     });
   }
@@ -35,17 +35,17 @@ export default class Main extends Scene {
   update() {
     this.player.update();
 
-    if (this.game.key.down("q")) {
-      this.game.event.emit("scene", "title");
+    if (this.root.key.down("q")) {
+      this.root.event.emit("scene", "title");
     }
   }
 
   draw() {
-    const game = this.game;
+    const root = this.root;
     const ctx = this.layer.get(0).context;
 
     ctx.fillStyle = "#4060A0";
-    ctx.fillRect(0, 0, game.width, game.height);
+    ctx.fillRect(0, 0, root.width, root.height);
 
     this.player.draw();
 
@@ -59,6 +59,6 @@ export default class Main extends Scene {
       }
     }
 
-    this.layer.drawAll(this.game.context);
+    this.layer.drawAll(this.root.context);
   }
 }

@@ -35,8 +35,8 @@ export default class Player extends Sprite {
   }
 
   update() {
-    const game = this.game;
-    const key = game.key;
+    const root = this.root;
+    const key = root.key;
 
     this.x += this.velocity.x;
     this.y += this.velocity.y;

@@ -29,8 +29,8 @@ class DebugParticle {
     this.vx += gx;
     this.vy += gy;
 
-    if (this.y > this.scene.game.height - 1) {
-      this.y = this.scene.game.height - 1;
+    if (this.y > this.scene.root.height - 1) {
+      this.y = this.scene.root.height - 1;
       this.vy *= -0.5;
     }
 
@@ -64,8 +64,8 @@ class DebugParticles {
     for (let i = 0; i < 32; i++) {
       const angle = Math.random() * Math.PI * 2;
       const v = Math.random() * 3 + 2;
-      const vx = Math.cos(angle) * v + this.scene.game.mouse.vx;
-      const vy = - Math.sin(angle) * v + this.scene.game.mouse.vy;
+      const vx = Math.cos(angle) * v + this.scene.root.mouse.vx;
+      const vy = - Math.sin(angle) * v + this.scene.root.mouse.vy;
       this.particles.add(new DebugParticle(this.scene, this.x, this.y, vx, vy));
     }
   }
@@ -91,12 +91,12 @@ class DebugParticles {
 export default class Debug extends Scene {
   sprites;
 
-  constructor(game, _config={}) {
-    super(game, "debug");
+  constructor(root, _config={}) {
+    super(root, "debug");
 
     this.layer = new Layer({
-      width: game.canvas.width,
-      height: game.canvas.height,
+      width: root.canvas.width,
+      height: root.canvas.height,
       num: 1,
     });
 
@@ -110,11 +110,11 @@ export default class Debug extends Scene {
 
   load() {
     this.assets.setImg("fonts", changeColor(
-      this.game.assets.getImg("fonts"),
+      this.root.assets.getImg("fonts"),
       0x50, 0x20, 0x20
     ));
     this.assets.setImg("fonts_alt", changeColor(
-      this.game.assets.getImg("fonts"),
+      this.root.assets.getImg("fonts"),
       0x90, 0x50, 0x50
     ));
 
@@ -123,12 +123,12 @@ export default class Debug extends Scene {
 
   update() {
     this.frame++;
-    if (this.game.key.down("q")) {
-      this.game.event.emit("scene", "title");
+    if (this.root.key.down("q")) {
+      this.root.event.emit("scene", "title");
     }
 
-    this.particles.move(this.game.mouse.x, this.game.mouse.y);
-    if (this.game.mouse.flag.get("click") || this.game.mouse.flag.get("touch")) {
+    this.particles.move(this.root.mouse.x, this.root.mouse.y);
+    if (this.root.mouse.flag.get("click") || this.root.mouse.flag.get("touch")) {
       this.particles.gen();
     }
     this.particles.update();
@@ -138,7 +138,7 @@ export default class Debug extends Scene {
     const ctx = this.layer.get(0).context;
 
     ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, this.game.width, this.game.height);
+    ctx.fillRect(0, 0, this.root.width, this.root.height);
 
     drawText(
       ctx, this.assets.getImg("fonts"),
@@ -146,18 +146,18 @@ export default class Debug extends Scene {
         `frame: ${this.frame}`,
         `input:`,
         `  mouse:`,
-        `      left: ${this.game.mouse.flag.get("left")}`,
-        `    middle: ${this.game.mouse.flag.get("middle")}`,
-        `     right: ${this.game.mouse.flag.get("right")}`,
-        `     click: ${this.game.mouse.flag.get("click")}`,
-        `     touch: ${this.game.mouse.flag.get("touch")}`,
-        `         x: ${Math.floor(this.game.mouse.x)}`,
-        `         y: ${Math.floor(this.game.mouse.y)}`,
-        `        vx: ${Math.floor(this.game.mouse.vx)}`,
-        `        vy: ${Math.floor(this.game.mouse.vy)}`,
+        `      left: ${this.root.mouse.flag.get("left")}`,
+        `    middle: ${this.root.mouse.flag.get("middle")}`,
+        `     right: ${this.root.mouse.flag.get("right")}`,
+        `     click: ${this.root.mouse.flag.get("click")}`,
+        `     touch: ${this.root.mouse.flag.get("touch")}`,
+        `         x: ${Math.floor(this.root.mouse.x)}`,
+        `         y: ${Math.floor(this.root.mouse.y)}`,
+        `        vx: ${Math.floor(this.root.mouse.vx)}`,
+        `        vy: ${Math.floor(this.root.mouse.vy)}`,
         `  key: ${(() => {
           let keys = [];
-          for (const [name, value] of this.game.key.flag.flags.entries()) {
+          for (const [name, value] of this.root.key.flag.flags.entries()) {
             if (value) {
               keys.push(`'${name}'`);
             }
@@ -170,6 +170,6 @@ export default class Debug extends Scene {
 
     this.particles.draw();
 
-    this.layer.drawAll(this.game.context);
+    this.layer.drawAll(this.root.context);
   }
 }

@@ -23,11 +23,11 @@ export default class Scene {
     },
   ]);
   name;
-  game;
+  root;
 
-  constructor(game, name="scene") {
+  constructor(root, name="scene") {
     this.name = name;
-    this.game = game;
+    this.root = root;
   }
 
   onload() {}
@@ -46,10 +46,10 @@ export default class Scene {
   init() {
     let load = null;
     if (!this.flag.get("loaded")) {
-      this.game.flag.set("pause", true);
+      this.root.flag.set("pause", true);
       load = this.load();
       load.then(_ => {
-        this.game.flag.set("pause", false);
+        this.root.flag.set("pause", false);
         this.event.emit("onenter");
       });
     } else {

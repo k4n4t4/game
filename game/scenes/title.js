@@ -9,13 +9,13 @@ export default class Title extends Scene {
     {
       name: "Start",
       func: () => {
-        this.game.event.emit("scene", "main");
+        this.root.event.emit("scene", "main");
       },
     },
     {
       name: "Debug",
       func: () => {
-        this.game.event.emit("scene", "debug");
+        this.root.event.emit("scene", "debug");
       },
     },
     {
@@ -26,19 +26,19 @@ export default class Title extends Scene {
     },
   ];
 
-  constructor(game, _config={}) {
-    super(game, "title");
+  constructor(root, _config={}) {
+    super(root, "title");
 
     this.layer = new Layer({
-      width: game.canvas.width,
-      height: game.canvas.height,
+      width: root.canvas.width,
+      height: root.canvas.height,
       num: 1,
     });
   }
 
   onload() {
-    this.game.key.event.add("down", e => {
-      if (this.game.scene.current_name === this.name) {
+    this.root.key.event.add("down", e => {
+      if (this.root.scene.current_name === this.name) {
         if (e.key === "Enter") {
           this.assets.play("se2");
           this.items[this.cursor].func();
@@ -83,11 +83,11 @@ export default class Title extends Scene {
       this.assets.loadSound("bgm1", "./game/assets/title_screen/bgm1.mp3"),
     ];
     this.assets.setImg("fonts", changeColor(
-      this.game.assets.getImg("fonts"),
+      this.root.assets.getImg("fonts"),
       0x50, 0x20, 0x20
     ));
     this.assets.setImg("fonts_alt", changeColor(
-      this.game.assets.getImg("fonts"),
+      this.root.assets.getImg("fonts"),
       0x90, 0x50, 0x50
     ));
 
@@ -108,6 +108,6 @@ export default class Title extends Scene {
       16 * 6, 16 * (7 + i));
     }
 
-    this.layer.drawAll(this.game.context);
+    this.layer.drawAll(this.root.context);
   }
 }
