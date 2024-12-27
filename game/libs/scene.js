@@ -10,7 +10,10 @@ export default class Scene {
   event = new Events([
     {
       name: "onload",
-      callbacks: [ () => { this.onload() } ],
+      callbacks: [ () => {
+        this.flag.set("loaded", true);
+        this.onload();
+      } ],
     },
     {
       name: "onenter",
@@ -54,7 +57,6 @@ export default class Scene {
   load(promises=[]) {
     const promise = Promise.all(promises);
     promise.then(_ => {
-      this.flag.set("loaded", true);
       this.event.emit("onload");
     });
     return promise;
